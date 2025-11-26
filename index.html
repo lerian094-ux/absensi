@@ -1,38 +1,62 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Absensi Kelas</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:20px; }
+    .container { max-width:420px; margin:auto; background:white; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+    h2 { text-align:center; margin-bottom:20px; }
+    label { font-weight:bold; margin-top:10px; display:block; }
+    input, select { width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:5px; }
+    button { width:100%; margin-top:20px; padding:12px; border:none; border-radius:5px; background:#007bff; color:white; font-size:16px; cursor:pointer; }
+    button:hover { background:#0056b3; }
+    .success { margin-top:15px; padding:10px; background:#d4ffd4; border-left:4px solid #28a745; }
+  </style>
 </head>
 <body>
   <div class="container">
+    <h2>Check-in Absensi</h2>
 
-    <h1>Absensi Kelas</h1>
+    <label>Nama Lengkap</label>
+    <input type="text" id="nama" placeholder="Masukkan Nama" />
 
-    <div class="card">
-      <h2>Check-in Siswa</h2>
+    <label>Pilih Kelas</label>
+    <select id="kelas">
+      <option value="">-- Pilih Kelas --</option>
+      <option value="X IPA 1">X IPA 1</option>
+      <option value="X IPA 2">X IPA 2</option>
+      <option value="XI IPA 1">XI IPA 1</option>
+      <option value="XI IPA 2">XI IPA 2</option>
+      <option value="XII IPA 1">XII IPA 1</option>
+      <option value="XII IPA 2">XII IPA 2</option>
+    </select>
 
-      <input id="studentName" type="text" placeholder="Nama lengkap" />
-      <input id="classCode" type="text" placeholder="Kode Kelas" />
+    <button onclick="submitAbsensi()">Check-in</button>
 
-      <button onclick="checkIn()">Check-in</button>
-    </div>
-
-    <div class="card">
-      <h2>Daftar Kelas</h2>
-      <button onclick="createClass()">+ Buat Kelas</button>
-      <ul id="classList"></ul>
-    </div>
-
-    <div class="card">
-      <h2>Detail Kelas</h2>
-      <div id="classDetail">Pilih kelas untuk melihat absensi.</div>
-    </div>
-
+    <div id="msg"></div>
   </div>
 
-<script src="app.js"></script>
+  <script>
+    function submitAbsensi() {
+      const nama = document.getElementById('nama').value.trim();
+      const kelas = document.getElementById('kelas').value;
+
+      if (!nama || !kelas) {
+        alert('Isi semua data terlebih dahulu');
+        return;
+      }
+
+      document.getElementById('msg').innerHTML = `
+        <div class='success'>
+          Absensi berhasil!<br><b>${nama}</b> - <b>${kelas}</b>
+        </div>
+      `;
+
+      document.getElementById('nama').value = "";
+      document.getElementById('kelas').value = "";
+    }
+  </script>
 </body>
 </html>
