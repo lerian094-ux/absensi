@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Absensi Kelas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Absensi Check-In Kelas</h1>
+
+    <div class="card">
+      <h2>Check-in Siswa</h2>
+
+      <input id="studentName" type="text" placeholder="Nama lengkap" />
+      <input id="classCode" type="text" placeholder="Kode Kelas" />
+
+      <button onclick="checkIn()">Check-in</button>
+    </div>
+
+    <div class="card">
+      <h2>Daftar Kelas</h2>
+      <button onclick="createClass()">+ Buat Kelas</button>
+
+      <ul id="classList"></ul>
+    </div>
+
+    <div class="card">
+      <h2>Detail Kelas</h2>
+      <div id="classDetail">Pilih kelas untuk melihat absensi.</div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
