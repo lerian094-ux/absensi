@@ -11,15 +11,15 @@ function createClass() {
   const name = prompt("Nama kelas:");
   if (!name) return;
 
-  const classObj = {
+  const newClass = {
     id: Date.now(),
     name,
     code: Math.random().toString(36).substr(2, 6).toUpperCase(),
-    records: [],
+    records: []
   };
 
-  classes.push(classObj);
-  selectedClassId = classObj.id;
+  classes.push(newClass);
+  selectedClassId = newClass.id;
   save();
 }
 
@@ -27,21 +27,21 @@ function renderClassList() {
   const list = document.getElementById("classList");
   list.innerHTML = "";
 
-  classes.forEach((c) => {
-    const li = document.createElement("li");
-    li.className = "list-item";
-    li.textContent = `${c.name} (Kode: ${c.code})`;
-    li.onclick = () => {
+  classes.forEach(c => {
+    const item = document.createElement("li");
+    item.className = "list-item";
+    item.textContent = `${c.name} (Kode: ${c.code})`;
+    item.onclick = () => {
       selectedClassId = c.id;
       renderClassDetail();
     };
-    list.appendChild(li);
+    list.appendChild(item);
   });
 }
 
 function renderClassDetail() {
   const detail = document.getElementById("classDetail");
-  const cls = classes.find((c) => c.id === selectedClassId);
+  const cls = classes.find(c => c.id === selectedClassId);
 
   if (!cls) {
     detail.innerHTML = "Pilih kelas untuk melihat absensi.";
@@ -52,19 +52,16 @@ function renderClassDetail() {
     <h3>${cls.name}</h3>
     <p><b>Kode Kelas:</b> ${cls.code}</p>
     <p><b>Total Hadir:</b> ${cls.records.length}</p>
-
-    <ul style="margin-top:10px;">
+    <ul>
   `;
 
   cls.records.forEach((r, i) => {
     html += `
-      <li class="list-item">
-        ${i + 1}. ${r.name} — ${new Date(r.time).toLocaleString()}
-      </li>
+      <li class="list-item">${i + 1}. ${r.name} — ${new Date(r.time).toLocaleString()}</li>
     `;
   });
 
-  html += `</ul>`;
+  html += "</ul>";
 
   detail.innerHTML = html;
 }
@@ -78,21 +75,23 @@ function checkIn() {
     return;
   }
 
-  const cls = classes.find((c) => c.code === code);
-  if (!cls) return alert("Kode kelas tidak ditemukan!");
+  const cls = classes.find(c => c.code === code);
+  if (!cls) {
+    alert("Kode kelas tidak ditemukan!");
+    return;
+  }
 
   cls.records.push({
     name,
-    time: new Date().toISOString(),
+    time: new Date().toISOString()
   });
+
+  selectedClassId = cls.id;
 
   document.getElementById("studentName").value = "";
   document.getElementById("classCode").value = "";
 
-  selectedClassId = cls.id;
   save();
-
-  alert("Check-in berhasil!");
 }
 
 renderClassList();
